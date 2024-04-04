@@ -1,8 +1,8 @@
 # SOSReceitas
 
-Levando a falta de inspiraçâo na cozinha, o nosso grupo decidiu criar um site no qual possa ajudar o usuário a encontrar novas receitas a partir de ingredientes que ele já possuem em sua casa!
-Com o chatbot, é só enviar uma foto dos ingredientes disponíveisque este lhe recomendará receitas escritos por outros usuários. Além disso, tendo uma conta no site, o usuário pode postar receitas de sua própria autoria e compartilhar com outras pessoas! 
-O nosso objetivo é ajudar pessoas, tanto a encontrar novos pratos, quanto dar uma plataforma para que receitas sejam compartilhadas e recomendadas para outros usuários. Tendo como impacto, a diversificaçâo do paladar e um acesso a recomendaçôes de receitas mais saudáveis e um senso de comunidade.
+Levando a falta de inspiração na cozinha, o nosso grupo decidiu criar um site no qual possa ajudar o usuário a encontrar novas receitas a partir de ingredientes que ele já possuem em sua casa!
+Com o chatbot, é só enviar uma foto dos ingredientes disponíveis que este lhe recomendará receitas escritos por outros usuários. Além disso, tendo uma conta no site, o usuário pode postar receitas de sua própria autoria e compartilhar com outras pessoas! 
+O nosso objetivo é ajudar pessoas, tanto a encontrar novos pratos, quanto dar uma plataforma para que receitas sejam compartilhadas e recomendadas para outros usuários. Tendo como impacto, a diversificação do paladar, um acesso a recomendações de receitas mais saudáveis e um senso de comunidade.
 
 ## Alunos integrantes da equipe
 
