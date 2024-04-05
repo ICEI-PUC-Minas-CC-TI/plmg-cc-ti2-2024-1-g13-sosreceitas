@@ -32,7 +32,7 @@ CREATE TABLE Assinaturas (
 CREATE TABLE Mensagens_chatbot (
     usuario_id INT REFERENCES usuarios(usuario_id),
     conteudo_mensagem TEXT,
-    url_imagem VARCHAR(255)
+    imagem BYTEA
 
     CONSTRAINT fk_usuario_chat FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id)
 );
