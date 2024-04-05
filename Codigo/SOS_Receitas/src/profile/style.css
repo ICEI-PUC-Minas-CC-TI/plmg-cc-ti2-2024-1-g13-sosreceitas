@@ -1,0 +1,119 @@
+body {
+  background-color: #efe8e3;
+}
+
+header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-info img {
+  width: 150px;
+  border-radius: 50%;
+  margin-bottom: 30px;
+}
+
+.user-info h2 {
+  margin: 0;
+}
+
+#add-recipe-btn {
+  background-color: #3c5949;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-top: 10px;
+  position: absolute;
+  bottom: 160px;
+}
+
+#logout-btn {
+  background-color: #3c5949;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+  font-family: Lato, Bold;
+}
+
+.premium-badge {
+  background-color: #92cb79;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Lato, Bold;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+main {
+  padding: 20px;
+}
+
+.recipes-list {
+  margin-top: 20px;
+  position: relative;
+}
+
+.recipes-list h3 {
+  margin-bottom: 10px;
+}
+
+footer {
+  background-color: #efe8e3;
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  background-color: #3c5949;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #3c5949;
+}
+
+#home-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.recipe {
+  background-color: #efe8e3;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.recipe h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.recipe p {
+  margin-top: 10px;
+  color: #555;
+}
