@@ -4,18 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfil do Usuário não premium</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="../main.css" />
   </head>
 
   <body>
     <header>
       <div class="user-info">
-        <img
-          src="../../assets/img/Perfil.png"
-          alt="photo"
-        />
-        <h2>Nome do Usuário</h2>
+        <img src="../../assets/img/Perfil.png" alt="photo" />
+        <div class="profile">
+          <h2 id="userName"></h2>
+          <span class="material-symbols-outlined" id="edit-btn"> edit</span>
+        </div>
         <button id="logout-btn">Sair</button>
       </div>
       <div class="premium-badge">Não Premium</div>
@@ -23,15 +27,49 @@
     <main>
       <div class="recipes-list">
         <h3>Minhas Receitas</h3>
-        <div id="recipes">
-          <!-- Receitas serão preenchidas dinamicamente -->
-        </div>
+        <div id="recipes"></div>
+        <button id="add-recipe-btn" class="material-symbols-outlined">
+          add
+        </button>
       </div>
     </main>
+    <div class="container">
+      <form id="recipe-form">
+        <label for="recipeName">Nome da Receita:</label><br />
+        <input type="text" id="recipeName" name="recipeName" /><br /><br />
+
+        <label for="recipePicture">URL da Imagem:</label><br />
+        <input
+          type="text"
+          id="recipePicture"
+          name="recipePicture"
+        /><br /><br />
+
+        <div id="ingredientsContainer">
+          <div class="ingredient">
+            <label for="ingredient1">Ingrediente 1:</label>
+            <input type="text" id="ingredient1" name="ingredient" />
+          </div>
+        </div>
+        <button type="button" onclick="addIngredient()">
+          Adicionar Ingrediente</button
+        ><br /><br />
+
+        <div id="stepsContainer">
+          <div class="step">
+            <label for="step1">Passo 1:</label>
+            <textarea id="step1" name="step"></textarea>
+          </div>
+        </div>
+        <button type="button" onclick="addStep()">Adicionar Passo</button
+        ><br /><br />
+
+        <button type="submit">Adicionar Receita</button>
+      </form>
+    </div>
     <footer></footer>
 
-    <button id="home-btn">&#8592;</button>
-    <button id="add-recipe-btn">+</button>
+    <button id="go-back" class="material-symbols-outlined">arrow_back</button>
 
     <script src="script.js"></script>
   </body>
