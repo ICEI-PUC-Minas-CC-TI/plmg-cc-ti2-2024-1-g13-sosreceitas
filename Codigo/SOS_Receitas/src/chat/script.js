@@ -1,53 +1,55 @@
-function showRecipes() {
+function showRecipes(ingredients) {
+  const storedRecipes = localStorage.getItem("recipes");
+
+  if (storedRecipes) {
+    displayRecipes(JSON.parse(storedRecipes), ingredients);
+  } else {
+    fetch("../../recipes.json")
+      .then((response) => response.json())
+      .then((data) => {
+        localStorage.setItem("recipes", JSON.stringify(data));
+        displayRecipes(data, ingredients);
+      })
+      .catch((error) => console.error("Erro ao carregar receitas:", error));
+  }
+}
+
+function displayRecipes(data, ingredients) {
   const chatBox = document.querySelector(".chat-box");
   const outgoingMsg = document.createElement("li");
   outgoingMsg.classList.add("msg", "outgoing");
-  outgoingMsg.innerHTML = `<ul class="recipes">
-            <li class="recipe">
-            <img src="../../assets/img/bolo-morango.webp" alt="" />
-            <div class="recipe-content">
-              <h3>Bolo de Morango</h3>
-              <a
-                >Saiba mais<span class="material-icons"
-                  >chevron_right</span
-                ></a
-              >
-            </div>
-          </li>
-          <li class="recipe">
-            <img src="../../assets/img/geleia-morango.webp" alt="" />
-            <div class="recipe-content">
-              <h3>Geleia de Morango</h3>
-              <a
-                >Saiba mais<span class="material-icons"
-                  >chevron_right</span
-                ></a
-              >
-            </div>
-          </li>
-          <li class="recipe">
-            <img src="../../assets/img/torta-morango.webp" alt="" />
-            <div class="recipe-content">
-              <h3>Torta de Morango</h3>
-              <a
-                >Saiba mais<span class="material-icons"
-                  >chevron_right</span
-                ></a
-              >
-            </div>
-          </li>
-          <li class="recipe">
-            <img src="../../assets/img/mousse-morango.webp" alt="" />
-            <div class="recipe-content">
-              <h3>Mousse de Morango</h3>
-              <a
-                >Saiba mais<span class="material-icons"
-                  >chevron_right</span
-                ></a
-              >
-            </div>
-          </li></ul>`;
 
+  const filteredRecipes = data.recipes.filter((recipe) => {
+    return recipe.ingredients.some((ingredient) =>
+      ingredients ? ingredient.name.includes(ingredients) : false
+    );
+  });
+
+  if (filteredRecipes.length === 0) {
+    outgoingMsg.innerHTML = `Nenhuma receita encontrada com esses ingredientes.</b>`;
+    chatBox.appendChild(outgoingMsg);
+    return;
+  }
+
+  const recipesList = document.createElement("ul");
+  recipesList.classList.add("recipes");
+
+  filteredRecipes.forEach((recipe) => {
+    const recipeItem = document.createElement("li");
+    recipeItem.classList.add("recipe");
+
+    const recipeContent = `
+      <img src="${recipe.picture}" alt="" />
+      <div class="recipe-content">
+        <h3>${recipe.name}</h3>
+        <a href="/src/recipe/index.html?id=${recipe.id}">Saiba mais<span class="material-icons">chevron_right</span></a>
+      </div>`;
+
+    recipeItem.innerHTML = recipeContent;
+    recipesList.appendChild(recipeItem);
+  });
+
+  outgoingMsg.appendChild(recipesList);
   chatBox.appendChild(outgoingMsg);
   outgoingMsg.style.display = "none";
 
@@ -55,6 +57,7 @@ function showRecipes() {
     outgoingMsg.style.display = "block";
   }, 1000);
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const inputField = document.querySelector(".chat-input input[type='text']");
@@ -73,7 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         inputField.value = "";
 
-        showRecipes();
+        const ingredientsFilter = ingredients.toLowerCase();
+
+        showRecipes(ingredientsFilter);
       }
     }
   });
