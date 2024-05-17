@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Receita Removida</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../main.css">
+  </head>
+
+  <body>
+    <header>
+      <div class="user-info">
+        <img
+          src="../../assets/img/Perfil.png"
+          alt="photo"
+        />
+        <h2>Nome do Usuário</h2>
+        <button id="logout-btn">Sair</button>
+      </div>
+      <div class="premium-badge">Não Premium</div>
+    </header>
+    <main>
+      <div class="notification">
+        <h3>Receita Removida</h3>
+        <p>A receita com o ID <span id="recipe-id"></span> foi removida com sucesso.</p>
+      </div>
+    </main>
+    <footer></footer>
+
+    <button id="home-btn">&#8592; Voltar</button>
+
+    <script>
+      // Script para obter o ID da receita removida (simulado para esta página)
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const recipeId = urlParams.get('id');
+        if (recipeId) {
+          document.getElementById('recipe-id').textContent = recipeId;
+        }
+      });
+
+      // Botão para voltar à página anterior
+      document.getElementById('home-btn').addEventListener('click', () => {
+        window.history.back();
+      });
+    </script>
+  </body>
+</html>
