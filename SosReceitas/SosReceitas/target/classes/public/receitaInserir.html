@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserir Receita</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../main.css">
+  </head>
+  <body>
+    <header>
+      <div class="user-info">
+        <img src="../../assets/img/Perfil.png" alt="photo">
+        <h2>Nome do Usuário</h2>
+        <button id="logout-btn">Sair</button>
+      </div>
+      <div class="premium-badge">Não Premium</div>
+    </header>
+    <main>
+      <div class="recipe-insert">
+        <h3>Inserir Nova Receita</h3>
+        <form id="insert-recipe-form">
+          <label for="recipe-id">ID da Receita:</label>
+          <input type="text" id="recipe-id" name="recipe-id" required>
+          
+          <label for="user-id">ID do Usuário:</label>
+          <input type="text" id="user-id" name="user-id" required>
+          
+          <label for="recipe-title">Título da Receita:</label>
+          <input type="text" id="recipe-title" name="recipe-title" required>
+          
+          <label for="recipe-steps">Modo de Preparo:</label>
+          <textarea id="recipe-steps" name="recipe-steps" required></textarea>
+          
+          <label for="recipe-image">Imagem da Receita:</label>
+          <input type="file" id="recipe-image" name="recipe-image" accept="image/*" required>
+          
+          <button type="submit">Inserir Receita</button>
+        </form>
+      </div>
+    </main>
+    <footer></footer>
+
+    <button id="home-btn">&#8592; Voltar</button>
+
+    <script>
+      document.getElementById('home-btn').addEventListener('click', function() {
+        window.history.back();
+      });
+
+      document.getElementById('insert-recipe-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Aqui você pode adicionar a lógica para salvar a receita
+        alert('Receita inserida com sucesso!');
+        window.location.href = 'perfil.html'; // Redireciona de volta para a página de perfil
+      });
+    </script>
+  </body>
+</html>
