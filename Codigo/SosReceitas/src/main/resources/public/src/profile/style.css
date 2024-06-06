@@ -1,0 +1,247 @@
+body {
+  background-color: #efe8e3;
+}
+
+header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-info img {
+  width: 150px;
+  border-radius: 50%;
+  margin-bottom: 30px;
+}
+
+.user-info h2 {
+  margin: 0;
+}
+
+
+.card-title{
+  color: white;
+  font-size: xx-large;
+
+}
+
+#add-recipe-btn {
+  background-color: #92cb79;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+#logout-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#list-recipes-btn {
+  background-color: #92cb79;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.premium-badge {
+  background-color: #92cb79;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+main {
+  padding: 20px;
+}
+
+.recipes-list {
+  margin-top: 20px;
+  position: relative;
+}
+
+.recipes-list h3 {
+  margin-bottom: 10px;
+}
+
+footer {
+  background-color: #efe8e3;
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  background-color: #3c5949;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #3c5949;
+}
+
+#home-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.recipe {
+  background-color: #efe8e3;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.recipe h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.recipe p {
+  margin-top: 10px;
+  color: #555;
+}
+
+body {
+  background-image: url("../images/bg-signup.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 100px;
+}
+
+.containernav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.container-left {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  
+}
+
+.card {
+  background-color: #3c5949;
+  padding: 30px;
+  border-radius: 4%;
+  width: 500px;
+  height: 500px;
+  margin: 10px;
+}
+
+#labelNome, #labelUsuario, #labelSenha, #labelConfirmSenha {
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.label-float input {
+  width: 100%;
+  padding: 5px 5px;
+  display: inline-block;
+  border: 0;
+  border-bottom: 2px solid #000000;
+  background-color: transparent;
+  outline: none;
+  min-width: 180px;
+  font-size: 16px;
+  transition: all .3s ease-out;
+  border-radius: 0;
+}
+
+.label-float {
+  position: relative;
+  padding-top: 13px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.label-float input:focus {
+  border-bottom: 2px solid #ffffff;
+}
+
+.label-float label {
+  color: #000000;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 13px;
+  transition: all .3s ease-out;
+}
+
+.label-float input:focus + label, .label-float input:valid + label {
+  font-size: 13px;
+  margin-top: 0;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.input-group .icon-btn {
+  background: none;
+  border: none;
+  padding: 5px;
+  margin-left: -1px;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+}
+
+.input-group .icon-btn img {
+  width: 60px;  /* Ajuste o tamanho conforme necessário */
+  height: 40px; /* Ajuste o tamanho conforme necessário */
+}

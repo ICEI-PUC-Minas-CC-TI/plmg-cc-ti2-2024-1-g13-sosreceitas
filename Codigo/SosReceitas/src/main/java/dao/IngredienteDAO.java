@@ -129,38 +129,13 @@ public Ingredientes get_Ingrediente(int id) {
 
 
  //TESTES
-/*
-public static void main(String[] args) {
-	IngredienteDAO ingrdao = new IngredienteDAO();
-	Ingredientes ing1 = new Ingredientes();
-	ing1.setNome("chocolate");
-	
-	/* boolean insercaoConcluida = ingrdao.add_Ingrediente(ing1);
-	  
-	    if (insercaoConcluida) {
-	        System.out.println("Ingrediente inserida com sucesso!");
-	    } else {
-	        System.out.println("Falha ao inserir ingrediente");
-	    }
-	    
-	    Ingredientes ing2 = new Ingredientes("leite");
-	    
-	    
-	    boolean insercao2 = ingrdao.add_Ingrediente(ing2);
-	    if (insercao2) {
-	        System.out.println("Ingrediente inserida com sucesso!");
-	    } else {
-	        System.out.println("Falha ao inserir ingrediente");
-	    }
-	    
-	    List<Ingredientes> listaIngredientes = ingrdao.Lista_Ingredientes();
 
-        // Exiba os ingredientes
-        for (Ingredientes ing : listaIngredientes) {
-            System.out.println("ID: " + ing.getId_ingredientes() + ", Nome: " + ing.getNome());
-        }
+public static void main(String[] args) {
+	
+	    
+	   
 	 
-}*/
+}
 
 
 }

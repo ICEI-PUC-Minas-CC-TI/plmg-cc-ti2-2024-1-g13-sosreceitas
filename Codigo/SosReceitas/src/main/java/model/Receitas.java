@@ -1,8 +1,10 @@
 package model;
 import model.Usuario;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
-public class Receitas{
+public class Receitas implements JsonFormatter{
 	
 	private int id_receitas;
 	private Usuario usuario;
@@ -88,6 +90,20 @@ public class Receitas{
 	/**
 	 * Meotodo para transformar em Json:   
 	 */
+    @Override
+	public JsonObject toJson() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("id_receits", id_receitas);
+		obj.addProperty("id_user", id_user);
+		obj.addProperty("titulo", titulo_receitas);
+		obj.addProperty("conteudo", conteudo_receitas);
+		obj.addProperty("imagem_url", imagem);
+		
+		return obj;
+	}
+	
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		return (this.getId_receitas() == ((Receitas) obj).getId_receitas());

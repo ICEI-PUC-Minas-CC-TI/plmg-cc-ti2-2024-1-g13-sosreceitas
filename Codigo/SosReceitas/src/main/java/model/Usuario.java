@@ -1,7 +1,9 @@
 package model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
-public class Usuario {
+public class Usuario implements JsonFormatter{
 	
 	private int id_user;
 	private String nome_user;
@@ -32,6 +34,16 @@ public class Usuario {
 		this.status_user = false;
 	}
 	
+	
+	public Usuario(String s1,String s2 ,String s3) {
+		super();
+		this.nome_user = s1;
+		this.email_user = s2;
+		this.senha_user = s3;
+		this.status_user = false;
+	}
+	
+	
 	public Usuario(int num,String s1,String s2 ,String s3, int bool) {
 		super();
 		this.id_user = num;
@@ -49,9 +61,7 @@ public class Usuario {
 	
 	
 	
-	
-	
-	
+
 	
 	public int getId_user() {
 		return id_user;
@@ -95,7 +105,24 @@ public class Usuario {
 	
 	/**
 	 * Meotodo para transformar em Json:      
+	 * 
 	 */
+	/**
+	 * Meotodo para transformar em Json:   
+	 */
+    @Override
+	public JsonObject toJson() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("id_user", id_user);
+		obj.addProperty("nome_user", nome_user);
+		obj.addProperty("email", email_user);
+		obj.addProperty("premium", status_user);
+		
+		return obj;
+	}
+	
+	
+	
 	
 	@Override
 	public boolean equals(Object obj) {

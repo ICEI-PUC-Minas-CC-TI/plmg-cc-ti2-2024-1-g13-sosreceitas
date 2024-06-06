@@ -1,0 +1,33 @@
+body{
+    background-color:#efe8e3;
+}
+
+#logo{
+    width: 300px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .logo {
+    width: 200px; /* Largura da logo */
+    height: auto; /* Altura ajustável para manter a proporção */
+  }
+
+.button {
+    width: 500px; 
+    height: 125px; 
+    font-size: xx-large;
+    background-color: #3c5949; /* Cor de fundo verde escuro */
+    color: #ffffff; /* Cor do texto branco */
+    padding: 15px 30px; /* Espaçamento interno */
+    border:none;
+    border-radius: 8px; /* Arredondar bordas */
+    cursor: pointer; /* Alterar cursor ao passar por cima */
+    display: block; /* Tornar os botões blocos para que fiquem um em cima do outro */
+    margin: 20px auto; /* Margem para centralizar na horizontal */
+  }

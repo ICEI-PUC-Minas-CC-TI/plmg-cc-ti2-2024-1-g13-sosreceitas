@@ -1,5 +1,5 @@
 package dao;
-
+import java.util.stream.Collectors;
 import model.Receitas;
 import model.Usuario;
 import java.sql.*;
@@ -59,11 +59,11 @@ public Receitas get_Receita(int id) {
 	
 	try {
 		Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-		String sql = "SELECT * FROM receita WHERE id_receitas = " + id;
+		String sql = "SELECT * FROM receitas WHERE id_receitas = " + id;
 		ResultSet rs = st.executeQuery(sql);
 		
 		if(rs.next()) {
-			rec = new Receitas(rs.getInt("id_receitas"),rs.getInt("id_user"),rs.getString("titulo_receita"),rs.getString("conteudo_receitas"), rs.getString("imagem"));
+			rec = new Receitas(rs.getInt("id_receitas"),rs.getInt("id_user"),rs.getString("titulo_receitas"),rs.getString("conteudo_receitas"), rs.getString("imagem"));
 		}
 		
 		System.out.println("Sucesso! " + rec.toString());
@@ -84,23 +84,25 @@ public Receitas get_Receita(int id) {
 
 
 public boolean update_Receita(Receitas rec) {
-	boolean status = false;
-	try {
-		  String sql = "UPDATE receitas SET id_user = '" + rec.getId_user() + "', " + "titulo_receitas = " + rec.getTitulo_receitas() + "," + "conteudo_receitas = " 
-	                    + rec.getConteudo_receitas()+ "," + "imagem = " + rec.getImagem() + "," +
-	                    "WHERE id_receitas = " + rec.getId_receitas();
-		  PreparedStatement st = conexao.prepareStatement(sql);
-		  st.executeUpdate();
-		  
-		  System.out.println("Sucesso! " + rec.toString());
-		  
-		  st.close();
-		  status = true;
-		
-	} catch(SQLException u) {
-		throw new RuntimeException(u);
-	}
-	return status;
+    boolean status = false;
+    try {
+        String sql = "UPDATE receitas SET id_user = ?, titulo_receitas = ?, conteudo_receitas = ?, imagem = ? WHERE id_receitas = ?";
+        PreparedStatement st = conexao.prepareStatement(sql);
+        st.setInt(1, rec.getId_user());
+        st.setString(2, rec.getTitulo_receitas());
+        st.setString(3, rec.getConteudo_receitas());
+        st.setString(4, rec.getImagem());
+        st.setInt(5, rec.getId_receitas());
+        st.executeUpdate();
+
+        System.out.println("Sucesso! " + rec.toString());
+
+        st.close();
+        status = true;
+    } catch (SQLException u) {
+        throw new RuntimeException(u);
+    }
+    return status;
 }
 
 
@@ -157,6 +159,77 @@ public List<Receitas> Lista_Receitas(){
 	return rec;
 }
 
+
+//Recurso para buscar receitas
+//Método para buscar receitas por ingredientes
+public List<Receitas> getReceitasByIngredientes(List<Integer> ingredientes) {
+    List<Receitas> receitasList = new ArrayList<>();
+    
+    try {
+        // Converter a lista de ingredientes em uma string de IDs separados por vírgula
+        String ingredientesIds = ingredientes.stream()
+                                             .map(String::valueOf)
+                                             .collect(Collectors.joining(","));
+        
+        // Query SQL para encontrar receitas que contenham todos os ingredientes
+        String sql = "SELECT r.* FROM receitas r " +
+                     "JOIN receitaingredientes ri ON r.id_receitas = ri.receita_id " +
+                     "WHERE ri.ingrediente_id IN (" + ingredientesIds + ") " +
+                     "GROUP BY r.id_receitas " +
+                     "HAVING COUNT(DISTINCT ri.ingrediente_id) = " + ingredientes.size();
+        
+        Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        ResultSet rs = st.executeQuery(sql);
+        
+        while (rs.next()) {
+            int id_rec = rs.getInt("id_receitas");
+            int id_user = rs.getInt("id_user");
+            String titulo = rs.getString("titulo_receitas");
+            String conteudo = rs.getString("conteudo_receitas");
+            String img = rs.getString("imagem");
+            
+            Receitas receita = new Receitas(id_rec, id_user, titulo, conteudo, img);
+            receitasList.add(receita);
+        }
+        
+        st.close();
+    
+    } catch (Exception e) {
+        System.err.println(e.getMessage());
+    }
+    
+    return receitasList;
+}
+
+
+public List<Integer> getIdsByNomes(List<String> nomes) {
+    List<Integer> ids = new ArrayList<>();
+
+    try {
+        // Converter a lista de nomes em uma string de nomes separados por vírgula e com aspas
+        String nomesStr = nomes.stream()
+                                .map(nome -> "'" + nome + "'")
+                                .collect(Collectors.joining(","));
+
+        // Query SQL para encontrar os IDs dos ingredientes pelos nomes
+        String sql = "SELECT id_ingredientes FROM ingredientes WHERE nome IN (" + nomesStr + ")";
+        
+        Statement st = conexao.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        
+        while (rs.next()) {
+            int id = rs.getInt("id_ingredientes");
+            ids.add(id);
+        }
+        
+        st.close();
+    
+    } catch (Exception e) {
+        System.err.println(e.getMessage());
+    }
+    
+    return ids;
+}
 
 
 /*Tests

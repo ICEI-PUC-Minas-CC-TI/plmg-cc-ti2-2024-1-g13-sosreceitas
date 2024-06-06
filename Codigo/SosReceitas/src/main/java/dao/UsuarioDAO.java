@@ -35,14 +35,19 @@ public class UsuarioDAO extends DAO {
 		boolean status = false;
 		try {
 			int statusInt = user.isStatus_user() ? 1 : 0;
-			String sql = "INSERT INTO usuario(id_user,nome_user, email_user, senha_user, status_user)"
-					+ "VALUES('" + user.getId_user() + "', " +
-                     "'" + user.getNome_user() + "', " +
+			String sql = "INSERT INTO usuario(nome_user, email_user, senha_user, status_user)"
+					+ "VALUES('" + user.getNome_user() + "', " +
                      "'" + user.getEmail_user() + "', " +
                      "'" + user.getSenha_user() + "', " +
                      "'" + statusInt + "')";
 			PreparedStatement st = conexao.prepareStatement(sql);
 			st.executeUpdate();
+			
+			// Obter o id_user gerado automaticamente
+            ResultSet generatedKeys = st.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                user.setId_user(generatedKeys.getInt(1));
+            }
 			st.close();
 			status = true;
 		
@@ -51,6 +56,10 @@ public class UsuarioDAO extends DAO {
 		}
 		return status; //Retorna true se adiçao no banco de dados foi concluida
 	}
+	
+	
+	
+	
 	
 	/**
 	 * Metodo get a partir do id
@@ -81,6 +90,45 @@ public class UsuarioDAO extends DAO {
 		return user;
 		
 	}
+	
+	
+	/*
+	 * Metodo get por email
+	 */
+	public Usuario getUsuarioByEmail(String email) {
+	    Usuario user = null;
+	    
+	    try {
+	        String sql = "SELECT * FROM usuario WHERE email_user = ?";
+	        PreparedStatement stmt = conexao.prepareStatement(sql);
+	        stmt.setString(1, email);
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            user = new Usuario(
+	                rs.getInt("id_user"),
+	                rs.getString("nome_user"),
+	                rs.getString("email_user"),
+	                rs.getString("senha_user"),
+	                rs.getInt("status_user")
+	            );
+	        }
+	        
+	        System.out.println("Sucesso! " + (user != null ? user.toString() : "Usuário não encontrado"));
+	        
+	        stmt.close();
+	    } catch (Exception e) {
+	        System.err.println(e.getMessage());
+	    }
+	    return user;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	/*
 	 * Metodo para update Usuario
@@ -170,49 +218,7 @@ public class UsuarioDAO extends DAO {
 	
 	public static void main(String[] args) {
 		
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-
-	    // Crie um objeto Usuario com os dados que deseja inserir
-	    Usuario novoUsuario = new Usuario();
-	    novoUsuario.setId_user(1);
-	    novoUsuario.setNome_user("Daniel Costa");
-	    novoUsuario.setEmail_user("dan04@email.com");
-	    novoUsuario.setSenha_user("senha123");
-	    novoUsuario.setStatus_user(true); 
-
-	    
-	    boolean insercaoConcluida = usuarioDAO.add_Usuario(novoUsuario);
-
-	    if (insercaoConcluida) {
-	        System.out.println("Usuário inserido com sucesso!");
-	    } else {
-	        System.out.println("Falha ao inserir usuário.");
-	    }
-		
-	    
-	    
-	    //List<Usuario> usuarios = usuarioDAO.Lista_Usuarios();
-
-        /* Agora você pode iterar sobre a lista de usuários e imprimir suas informações
-        for (Usuario usuario : usuarios) {
-        	System.out.println("------------------------");
-            System.out.println("ID: " + usuario.getId_user());
-            System.out.println("Nome: " + usuario.getNome_user());
-            System.out.println("E-mail: " + usuario.getEmail_user());
-            System.out.println("Senha: " + usuario.getSenha_user());
-            System.out.println("Status: " + (usuario.isStatus_user() ? "Ativo" : "Inativo"));
-            System.out.println("------------------------");
-        }
-	    
-	    int idParaExcluir = 1; // Substitua pelo ID correto
-	    boolean excluiuComSucesso = usuarioDAO.delete_Usuario(idParaExcluir);
-	    if(excluiuComSucesso) {
-	    	System.out.println("Excluido com SUCESSOR");
-	    }
-	    else {
-	    	System.out.println("neum excluiu");
-	    }*/
-    }
+	}
 	    
 		
 	}

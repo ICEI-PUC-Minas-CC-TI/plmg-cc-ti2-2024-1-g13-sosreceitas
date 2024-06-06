@@ -1,0 +1,91 @@
+body {
+    background-color: #efe8e3;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .card {
+    background-color: #efe8e3;
+    padding: 30px;
+    border-radius: 8px;
+    width: 800px;
+  }
+  
+  .card h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #3c5949;
+    font-size: xx-large;
+  }
+  
+  .label-float {
+    position: relative;
+    padding-top: 13px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  
+  .label-float input,
+  .label-float textarea {
+    width: 100%;
+    padding: 5px 5px;
+    display: inline-block;
+    border: 0;
+    border-bottom: 2px solid #3c5949; /*era preto*/
+    background-color: transparent;
+    outline: none;
+    font-size: 16px;
+    transition: all .3s ease-out;
+  }
+  
+  .label-float input:focus,
+  .label-float textarea:focus {
+    border-bottom: 2px solid #ffffff;
+  }
+  
+  .label-float label {
+    color: #3c5949; /*era preto*/
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 13px;
+    transition: all .3s ease-out;
+  }
+  
+  .label-float input:focus + label,
+  .label-float input:valid + label,
+  .label-float textarea:focus + label,
+  .label-float textarea:valid + label {
+    font-size: 13px;
+    margin-top: 0;
+    color: #ffffff;
+  }
+  
+  button {
+    background-color: white;
+    border-radius: 15px;
+    height: 40px;
+    width: 100%;
+    color: #3c5949;
+    padding: 7px;
+    font-weight: bold;
+    font-size: 12pt;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: all .4s ease-out;
+  }
+  
+  button:hover {
+    background-color: #2e4739;
+    color: #ffffff;
+  }
+  
