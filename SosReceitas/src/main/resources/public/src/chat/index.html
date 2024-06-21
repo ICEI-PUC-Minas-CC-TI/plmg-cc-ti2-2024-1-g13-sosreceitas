@@ -1,59 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Chat</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="../main.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-  </head>
-  <body style="background-color: #efe8e3">
-   
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
+<body style="background-color: #efe8e3">
     <div class="image-container">
-      <a class="profile" href="http://127.0.0.1:3000/SOS_Receitas/index.html">
-        <img src="../../assets/img/logo.png" alt="Imagem no canto superior esquerdo" />
-      </a>
+        <a class="profile" href="http://127.0.0.1:3000/SOS_Receitas/index.html">
+            <img src="../../assets/img/logo.png" alt="Imagem no canto superior esquerdo" />
+        </a>
     </div>
-
-   
     <div class="container">
-      <a class="profile-btn" href="../profile/profile.html"
-        ><img src="../../assets/img/Perfil.png" alt="profile "
-      /></a>
-      <div class="chat">
-
-        <video
-            id="video"
-            width="675"
-            height="auto"
-            style="display: none"
-        ></video>
-
-        <ul class="chat-box"></ul>
-
-        <div class="chat-input">
-          <input type="text" placeholder="Digite os Ingredientes..." />
-          <span id="up-button" class="material-icons">upload</span>
-          <input type="file" id="file-input" style="display: none" />
-          <span id="cam-button" class="material-icons">photo_camera</span>
+        <a class="profile-btn" href="../profile/profile.html">
+            <img src="../../assets/img/Perfil.png" alt="profile " />
+        </a>
+        <div class="chat">
+            <video id="video" width="675" height="auto" style="display: none"></video>
+            <ul class="chat-box"></ul>
+            <div class="chat-input">
+                <input type="text" id="ingredientes-input" placeholder="Digite os Ingredientes..." />
+                <span id="up-button" class="material-icons">upload</span>
+                <input type="file" id="file-input" style="display: none" />
+                <span id="cam-button" class="material-icons">photo_camera</span>
+            </div>
         </div>
-      </div>
-      <button id="capture-button" style="display: none"><span class="material-icons">camera</span></button>
+        <button id="capture-button" style="display: none"><span class="material-icons">camera</span></button>
     </div>
 
-    <h1>Buscar Receitas por Ingredientes</h1>
-    <form id="ingredientes-form">
-        <label for="ingredientes">Digite os ingredientes separados por vírgula:</label><br>
-        <input type="text" id="ingredientes" name="ingredientes" required><br><br>
-        <button type="submit">Buscar Receitas</button>
-    </form>
-    <div id="receitas-container"></div>
-
-    <script src="script.js"></script>
-    <script src="teste.js"></script>
-  </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputField = document.getElementById('ingredientes-input');
+            const chatBox = document.querySelector('.chat-box');
+            const upButton = document.getElementById('up-button');
+            const fileInput = document.getElementById('file-input');
+        
+            const ingredientesDB = ['banana', 'chocolate', 'laranja', 'tomate', 'leite', 'sal','alho',
+                                    'cebola', 'pimentão', 'arroz', 'feijão','ovo','farinha de trigo','gergilim',
+                                    'açúcar','pão', 'queijo','óleo','salsicha', 'morango','creme de leite','batata',
+                                    'manteiga','azeite','majericão','orégano','mussarela','mussarela de búfala','iogurte',
+                                    'abobrinha','bacon','carne moída','pimenta-do-reino','cheiro verde','leite condensado',
+                                    'camarão', 'limão', 'rum', 'hortelã', 'carne seca',
+                                    'gelo', 'soda', 'cebolinha','aveia', 'canela', 'grão-de-bico', 'mel', 'baunilha', 'abacate', 'doritos', 'milho', 'maisena'
+            ];
+        
+            const subscriptionKey = 'd6319b3a1efa437ca991fe2caa50ca1c';
+            const endpoint = 'https://sosreceitas-imagetags.cognitiveservices.azure.com';
+        
+            async function analyzeImage(imageData) {
+                const uriBase = `${endpoint}/vision/v3.2/analyze`;
+                const params = {
+                    visualFeatures: 'Tags',
+                    language: 'pt'
+                };
+        
+                try {
+                    const response = await fetch(`${uriBase}?${new URLSearchParams(params)}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/octet-stream',
+                            'Ocp-Apim-Subscription-Key': subscriptionKey,
+                        },
+                        body: imageData
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error('Erro ao realizar a análise de imagem');
+                    }
+        
+                    const result = await response.json();
+        
+                    if (!result.tags || !Array.isArray(result.tags)) {
+                        throw new Error('Resposta inválida da API');
+                    }
+        
+                    const ingredientes = result.tags.map(tag => tag.name);
+                    return ingredientes;
+                } catch (error) {
+                    console.error('Erro ao analisar imagem:', error);
+                    throw error;
+                }
+            }
+        
+            function filtrarIngredientes(tags, ingredientesDB) {
+                return tags.filter(tag => ingredientesDB.includes(tag));
+            }
+        
+            async function enviarIngredientes(ingredientes) {
+                try {
+                    const response = await fetch('http://localhost:4567/receitas/ingredientes', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(ingredientes)
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error('Erro ao obter receitas');
+                    }
+        
+                    const receitas = await response.json();
+                    mostrarReceitas(receitas);
+                } catch (error) {
+                    console.error('Erro ao carregar receitas:', error);
+                    alert('Erro ao carregar receitas');
+                }
+            }
+        
+            function mostrarReceitas(receitas) {
+                chatBox.innerHTML = '';
+        
+                receitas.forEach(receita => {
+                    const receitaElement = document.createElement('li');
+                    receitaElement.classList.add('recipe-item');
+        
+                    if (receita.imagem) {
+                        const imagem = document.createElement('img');
+                        imagem.src = receita.imagem;
+                        imagem.alt = receita.titulo_receitas;
+                        receitaElement.appendChild(imagem);
+                    }
+        
+                    const detalhes = document.createElement('div');
+                    detalhes.classList.add('recipe-details');
+                    receitaElement.appendChild(detalhes);
+        
+                    const titulo = document.createElement('h2');
+                    titulo.textContent = receita.titulo_receitas;
+                    detalhes.appendChild(titulo);
+        
+                    const saibaMaisLink = document.createElement('a');
+                    saibaMaisLink.textContent = 'Saiba mais';
+                    saibaMaisLink.href = `saibaMais.html?id=${receita.id_receitas}`;
+                    detalhes.appendChild(saibaMaisLink);
+        
+                    chatBox.appendChild(receitaElement);
+                });
+            }
+        
+            upButton.addEventListener('click', () => {
+                fileInput.click();
+            });
+        
+            fileInput.addEventListener('change', async (event) => {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+        
+                reader.onloadend = async () => {
+                    const arrayBuffer = reader.result;
+                    try {
+                        const tags = await analyzeImage(arrayBuffer);
+                        const ingredientes = filtrarIngredientes(tags, ingredientesDB);
+                        await enviarIngredientes(ingredientes);
+                    } catch (error) {
+                        console.error('Erro ao processar imagem:', error);
+                        alert('Erro ao processar imagem');
+                    }
+                };
+        
+                if (file) {
+                    reader.readAsArrayBuffer(file);
+                }
+            });
+        
+            const firstMsg = document.createElement('li');
+            firstMsg.classList.add('msg', 'incoming');
+            firstMsg.innerHTML = '<p>Bem vindo ao SosReceitas ! Entre com seus ingredientes ou nos mande uma foto para receitas deleciosas.</p>';
+            chatBox.appendChild(firstMsg);
+        
+            inputField.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+        
+                    const ingredientesInput = inputField.value;
+                    const ingredientes = ingredientesInput.split(',').map(ingrediente => ingrediente.trim());
+        
+                    inputField.value = ''; // Limpar o campo de entrada
+                    enviarIngredientes(ingredientes);
+                }
+            });
+        });
+        </script>
+</body>
 </html>
