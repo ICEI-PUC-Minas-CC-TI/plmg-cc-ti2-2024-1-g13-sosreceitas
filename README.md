@@ -6,11 +6,11 @@ O nosso objetivo é ajudar pessoas, tanto a encontrar novos pratos, quanto dar u
 
 ## Alunos integrantes da equipe
 
-* Daniel Victor rocha costa
-* Gustavo vinicius elias souza silva
-* Julia gabriela dos santos ramalho aleluia
-* Lucas soares tavares
-* Sarah almeida frança
+* Daniel Victor Rocha Costa
+* Gustavo Vinicius Elias Souza Silva
+* Julia Gabriela dos Santos Ramalho Aleluia
+* Lucas Soares Tavares
+* Sarah Almeida França
 
 ## Professores responsáveis
 
