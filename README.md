@@ -23,4 +23,4 @@ O nosso objetivo é ajudar pessoas, tanto a encontrar novos pratos, quanto dar u
 
 ## Vídeo apresentando sistema final
 
-URL: https://youtu.be/GXIiIJLAsqY
+URL para download no Google Drive: https://drive.google.com/drive/folders/1OxxqKaxKjbMIEiV_ZdtbZ1Y8i1BEaW_9?usp=sharing
