@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Receita</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../profile/receitaDetalhada.css">
+</head>
+<body>
+    <header>
+        <h1>Detalhes da Receita</h1>
+        <span id="user-name"></span>
+    </header>
+    <main id="recipe-detail">
+        <!-- Detalhes da receita serão carregados aqui -->
+    </main>
+    <footer>
+        <!-- Rodapé -->
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const userId = currentUser ? currentUser.id_user : null;
+
+            if (currentUser && currentUser.nome_user) {
+                document.getElementById('user-name').textContent = currentUser.nome_user;
+            } else {
+                alert('Usuário não identificado. Faça login para ver os detalhes da receita.');
+                return;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const recipeId = urlParams.get('id');
+
+            if (recipeId) {
+                fetch(`http://localhost:4567/receitas/${recipeId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao obter detalhes da receita');
+                        }
+                        return response.json();
+                    })
+                    .then(recipe => {
+                        const container = document.getElementById('recipe-detail');
+                        container.style.width = '50%';
+                        container.style.margin = '0 auto';
+
+                        container.innerHTML = '';
+
+                        const receitaElement = document.createElement('div');
+                        receitaElement.classList.add('receita');
+
+                        const titulo = document.createElement('h2');
+                        titulo.textContent = recipe.titulo;
+                        receitaElement.appendChild(titulo);
+
+                        if (recipe.imagem_url) {
+                            const imagem = document.createElement('img');
+                            imagem.src = recipe.imagem_url;
+                            imagem.alt = recipe.titulo;
+                            imagem.style.display = 'block';
+                            imagem.style.margin = "15px auto";
+                            receitaElement.appendChild(imagem);
+                        }
+
+                        const conteudo = document.createElement('p');
+                        conteudo.textContent = recipe.conteudo;
+                        conteudo.style.marginTop = '25px';
+                        conteudo.style.fontSize = '18px';
+                        receitaElement.appendChild(conteudo);
+
+                        const favButton = document.createElement('button');
+                        favButton.innerHTML = '<img src="../../assets/img/starr.png" alt="Star Icon" style="width: 20px; height: 20px; margin-right: 8px; margin-bottom:15px;">Favorito';
+                        favButton.classList.add('fav-button'); // Adicione a classe 'fav-button'
+
+                        favButton.addEventListener('click', () => {
+                            if (userId && recipeId) {
+                                fetch('http://localhost:4567/favoritos', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ userId: userId, recipeId: recipeId })
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Erro ao adicionar aos favoritos');
+                                    }
+                                    alert('Receita adicionada aos favoritos com sucesso!');
+                                })
+                                .catch(error => {
+                                    console.error('Erro:', error);
+                                    alert('Erro ao adicionar aos favoritos');
+                                });
+                            } else {
+                                alert('Usuário ou receita não identificado.');
+                            }
+                        });
+                        receitaElement.appendChild(favButton);
+
+                        container.appendChild(receitaElement);
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Erro ao obter detalhes da receita');
+                    });
+            } else {
+                alert('ID da receita não encontrado na URL');
+            }
+        });
+    </script>
+</body>
+</html>
