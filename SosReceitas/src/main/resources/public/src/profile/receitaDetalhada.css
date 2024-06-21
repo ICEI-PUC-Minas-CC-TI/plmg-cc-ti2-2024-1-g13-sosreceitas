@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #3c5959;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+main {
+    padding: 2em;
+}
+
+.receita {
+    border: 1px solid #ddd;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.receita img {
+    max-width: 150px;
+    max-height: 100%;
+    height: auto;
+    display: block;
+    margin-top: 1em;
+}

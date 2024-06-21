@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Receita</title>
+    <link rel="stylesheet" href="receitaInserir.css">
+    <link rel="stylesheet" href="../main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Atualizar Receita</h1>
+            <form id="update-recipe-form">
+                <div class="label-float">
+                    <input type="text" id="update-recipe-id" name="update-recipe-id" required />
+                    <label for="update-recipe-id">ID da Receita:</label>
+                </div>
+                <div class="label-float">
+                    <input type="text" id="update-recipe-title" name="update-recipe-title" required />
+                    <label for="update-recipe-title">Novo Título:</label>
+                </div>
+                <div class="label-float">
+                    <textarea id="update-recipe-content" name="update-recipe-content" rows="4" required></textarea>
+                    <label for="update-recipe-content">Novo Conteúdo:</label>
+                </div>
+                <div class="label-float">
+                    <input type="text" id="update-recipe-image" name="update-recipe-image" required />
+                    <label for="update-recipe-image">Nova Imagem:</label>
+                </div>
+                <button type="submit">Atualizar Receita</button>
+            </form>
+        </div>
+    </div>
+
+    <button id="home-btn">&#8592; Voltar</button>
+
+    <script>
+        document.getElementById('home-btn').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
+    <script src="update-receita.js"></script>
+</body>
+</html>
