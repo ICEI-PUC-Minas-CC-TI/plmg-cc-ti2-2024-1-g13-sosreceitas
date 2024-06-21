@@ -20,3 +20,7 @@ O nosso objetivo é ajudar pessoas, tanto a encontrar novos pratos, quanto dar u
 ## Instruções de utilização
 
 [Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.]
+
+## Vídeo apresentando sistema final
+
+URL: https://youtu.be/GXIiIJLAsqY
