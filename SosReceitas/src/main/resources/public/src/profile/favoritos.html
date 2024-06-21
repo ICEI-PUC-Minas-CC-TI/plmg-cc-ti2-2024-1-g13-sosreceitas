@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Receitas Favoritas</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../main.css">
+    <link rel = "stylesheet" href="receitaLista.css">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <header>
+        
+        <h1>Receitas Favoritas</h1>
+        <button id="home-btn">&#8592; Voltar</button>
+    </header>
+    <main>
+        <div id="receitas-container" class="container"></div>
+    </main>
+    <footer></footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (currentUser && currentUser.id_user) {
+                const userId = currentUser.id_user;
+
+                // Fetching favorite recipes
+                fetch(`http://localhost:4567/favoritos/${userId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const container = document.getElementById('receitas-container');
+                        container.style.width = '50%';
+                        container.style.margin = '0 auto';
+                        
+                        if (data.length === 0) {
+                            const noFavoritesMessage = document.createElement('p');
+                            noFavoritesMessage.textContent = 'Você ainda não tem receitas favoritas.';
+                            container.appendChild(noFavoritesMessage);
+                        } else {
+                            data.forEach(receita => {
+                                const receitaElement = document.createElement('div');
+                                receitaElement.classList.add('receita');
+
+                                const titulo = document.createElement('h2');
+                                titulo.textContent = receita.titulo_receitas;
+                                receitaElement.appendChild(titulo);
+
+                                const conteudo = document.createElement('p');
+                                conteudo.textContent = receita.conteudo_receitas;
+                                conteudo.style.marginTop = '15px';
+                                conteudo.style.fontSize = '18px';
+                                receitaElement.appendChild(conteudo);
+
+                                if (receita.imagem) {
+                                    const imagem = document.createElement('img');
+                                    imagem.src = receita.imagem;
+                                    imagem.alt = receita.titulo_receitas;
+                                    imagem.style.margin = "15px auto";
+                                    receitaElement.appendChild(imagem);
+                                }
+
+                                container.appendChild(receitaElement);
+                            });
+                        }
+                        container.style.backgroundColor = '#efe8e3';
+                    })
+                    .catch(error => {
+                        console.error('Erro ao carregar receitas favoritas:', error);
+                    });
+            } else {
+                // Redireciona para a página de login se o usuário não estiver logado
+                alert('Você não está logado!');
+                window.location.href = '../login/index.html';
+            }
+        });
+
+        document.getElementById('home-btn').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
+
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
