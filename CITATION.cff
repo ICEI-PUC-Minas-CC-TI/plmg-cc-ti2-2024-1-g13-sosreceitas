@@ -1,31 +1,32 @@
 cff-version: 1.0.1
 message: Please cite this software using these metadata.
-title: 
+title: SOSReceitas
 authors:
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names:
+  - family-names: Rocha Costa
+    given-names: Daniel Victor
+  - family-names: Elias Souza Silva
+    given-names: Gustavo Vinicius
+  - family-names: dos Santos Ramalho Aleluia
+    given-names: Julia Gabriela
+  - family-names: Soares Tavares
+    given-names: Lucas
+  - family-names: Almeida França
+    given-names: Sarah
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: de Oliveira Capanema
+    given-names: Daniel
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: Vieira Carneiro
+    given-names: Rommel
 keywords:
-  - 
-  - 
-repository-code: 
+  - Culinária
+  - Sistema Inteligente
+  - Analise de Imagem
+  - Compartilhamento de Receitas Culinárias
+  - Pesquisa a partir de ingredientes
+repository-code: https://github.com/ICEI-PUC-Minas-CC-TI/plmg-cc-ti2-2024-1-g13-sosreceitas
 license: CC-BY-4.0
 version: 1.0.0
-date-released: 2022-07-14
+date-released: 2024-06-21
